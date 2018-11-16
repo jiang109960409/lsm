@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+<nav th:fragment="Banner"
+	class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top row"
+	style="height:50px;">
+	<div class="col-10 d-flex justify-content-start">
+		<a class="navbar-brand align-self-center" href="/home"> <img
+			th:src="@{~/image/logoWhite.png}" width="30" height="30"></img>
+		</a>
+		<p class="text-warning" style="margin-top: 17px;">浪曦精神，数据为王</p>
+	</div>
+	<div class="col-2 d-flex justify-content-end">
+		<button type="button" class="btn btn-dark" onclick="javascript: logout()">退出登录</button>
+	</div>
+</nav>
+</head>
+</html>

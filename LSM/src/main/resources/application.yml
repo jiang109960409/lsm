@@ -1,0 +1,45 @@
+server:
+  port: 80
+  tomcat:
+    access-log-enabled: true
+    base-dir: .
+spring:
+  profiles.active: dev
+  application.name: screen
+  aop:
+    auto: true
+    proxy-target-class: true
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/lsm?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 12345
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 200Mb
+  jackson.date-format: yyyy-MM-dd HH:mm:ss
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+    formcontent.putfilter.enabled: true
+  jmx:
+    enabled: true
+  thymeleaf:
+    cache: false
+endpoints:
+  shutdown:
+    enabled: true
+    sensitive: false
+  jmx:
+    enabled: true
+    domain: lsm
+    unique-names: true
+mybatis.configuration.map-underscore-to-camel-case: true
+security:
+  jwt: 
+    secret-key: lsm

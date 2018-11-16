@@ -1,0 +1,86 @@
+\@charset "utf-8";
+/* 代码整理：懒人之家 lanrenzhijia.com */
+* {
+	margin:0;
+	padding:0;
+	list-style-type:none;
+}
+a, img {
+	border:0;
+}
+body {
+	font:12px/180% Arial, Helvetica, sans-serif, "宋体";
+}
+a {
+	color:#333;
+	text-decoration:none;
+}
+a:hover {
+	color:#3366cc;
+	text-decoration:underline;
+}
+/* demo */
+.demo {
+	width:686px;
+	margin:40px auto;
+	position:relative;
+}
+.demo h2 {
+	font-size:16px;
+	height:44px;
+	color:#3366cc;
+	margin-top:20px;
+}
+.demo dl dt {
+	font-size:14px;
+	color:#ff6600;
+	margin-top:40px;
+}
+.demo dl dt, .demo dl dd {
+	line-height:22px;
+}
+/* scrollbox */
+.scrollbox {
+	position:relative;
+	width:1080px;
+	height:700px;
+	overflow:hidden;
+}
+.scrollbox ul {
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+.scrollbox li {
+	float:left;
+	width:670px;
+	overflow:hidden;
+	padding:5px 0px;
+}
+.scrollbox li a {
+	overflow:hidden;
+	margin-left:10px;
+	line-height: 40px;
+	font-size: 28px;
+	margin-top: 10px;
+}
+/**
+**/
+.scrollbox li a img {
+	display:block;
+	width:156px;
+	height:63px;
+	background:#eee;
+}
+/* leftlist */
+#leftlist {
+	width:999em;
+}
+/* fontlist */
+#fontlist li {
+	height:22px;
+	line-height:42px;
+}
+#fontlist li a {
+	width:auto;
+}

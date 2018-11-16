@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+
+<title>浪曦学生管理系统</title>
+<link rel="icon" th:href="@{~/image/logo.png}"></link>
+<link th:href="@{~/css/admin.css}" rel="stylesheet" media="screen"
+	type="text/css"></link>
+<link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}"></link>
+<script th:src="@{~/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{~/js/popper.min.js}"></script>
+<script th:src="@{~/js/bootstrap.min.js}"></script>
+<script th:src="@{~/js/jquery.nicescroll.min.js}"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#menu").niceScroll();
+	});
+	
+	function logout(){
+		location.href="login";
+	}
+</script>
+</head>
+<body>
+	<div class="container-fluid h-100" style="padding:0px;">
+		<div th:replace="common/banner::Banner"></div>
+		<div class="row h-100">
+			<div class="col-2">
+				<div th:replace="common/menu::Menu"></div>
+			</div>
+			<div class="col-10">
+				<div th:if="${data.isHome}" class="d-flex align-items-center justify-content-center h-100">
+					<h1>欢迎登录浪曦学生管理系统</h1>
+				</div>
+			</div>
+		</div>
+		<div th:replace="common/footer::Footer"></div>
+	</div>
+</body>
+</html>
