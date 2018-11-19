@@ -27,6 +27,7 @@ spring:
   mvc:
     date-format: yyyy-MM-dd HH:mm:ss
     formcontent.putfilter.enabled: true
+    #static-path-pattern: /static/**
   jmx:
     enabled: true
   thymeleaf:

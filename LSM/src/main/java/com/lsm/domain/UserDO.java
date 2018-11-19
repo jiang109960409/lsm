@@ -8,7 +8,7 @@ public class UserDO {
 	// 姓名
 	private String name;
 	// 角色id
-	private Long roleId;
+	private String roleIds;
 	// 职位
 	private String title;
 	// 后台登录账号
@@ -44,12 +44,12 @@ public class UserDO {
 		this.name = name;
 	}
 
-	public Long getRoleId() {
-		return this.roleId;
+	public String getRoleIds() {
+		return roleIds;
 	}
 
-	public void setRoleId(Long roleId) {
-		this.roleId = roleId;
+	public void setRoleIds(String roleIds) {
+		this.roleIds = roleIds;
 	}
 
 	public String getTitle() {

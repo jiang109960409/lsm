@@ -13,7 +13,7 @@ public interface AppMapper {
 	
 	@Results(id = "user", value= {
 			@Result(column="job_number", property="jobNumber"),
-			@Result(column="role_id", property="roleId"),
+			@Result(column="role_ids", property="roleIds"),
 			@Result(column="create_date", property="createDate")
 	})
 	@Select("select * from org_user where account=#{account} and password=#{password}")

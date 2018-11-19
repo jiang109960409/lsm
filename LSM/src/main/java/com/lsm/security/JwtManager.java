@@ -3,6 +3,7 @@ package com.lsm.security;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.crypto.SecretKey;
@@ -35,8 +36,8 @@ public class JwtManager {
 		secretKey = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
 	}
 
-	public String createToken(long id, String name) {
-		TokenPayload payload = new TokenPayload(id, name);
+	public String createToken(long id, String name, List<Integer> roles) {
+		TokenPayload payload = new TokenPayload(id, name, roles);
 		String subject;
 		try {
 			subject = om.writeValueAsString(payload);
