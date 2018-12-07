@@ -1,11 +1,14 @@
 package com.lsm.config;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.validation.MessageCodesResolver;
 import org.springframework.validation.Validator;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -46,17 +49,19 @@ public class InterceptorConfig implements WebMvcConfigurer {
 		registration.excludePathPatterns("/login");
 		registration.excludePathPatterns("/logout");
 		registration.excludePathPatterns("/401");
-		
+
 		// 静态资源
 		registration.excludePathPatterns("/image/**/*");
 		registration.excludePathPatterns("/js/**/*");
 		registration.excludePathPatterns("/css/**/*");
+		registration.excludePathPatterns("/fonts/**/*");
 	}
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/image/**/*").addResourceLocations("classpath:/static/image/");
 		registry.addResourceHandler("/js/**/*").addResourceLocations("classpath:/static/js/");
+		registry.addResourceHandler("/fonts/**/*").addResourceLocations("classpath:/static/fonts/");
 		registry.addResourceHandler("/css/**/*").addResourceLocations("classpath:/static/css/");
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 	}
@@ -113,7 +118,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-
 	}
 
 	@Override

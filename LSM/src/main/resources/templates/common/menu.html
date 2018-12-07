@@ -4,27 +4,16 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
-<div id="menu" th:fragment="Menu" class="card w-100 h-100 justify-content-center" style="margin-top: 23.56px;">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item" style="padding:0px 2px 0px 0px;">
-    	<button type="button" class="btn btn-info btn-lg btn-block w-100">Info</button>
-    </li>
-    <li class="list-group-item" style="padding:0px 2px 0px 0px;">
-    	<button type="button" class="btn btn-info btn-lg btn-block w-100">Info</button>
-    </li>
-    <li class="list-group-item" style="padding:0px 2px 0px 0px;">
-    	<button type="button" class="btn btn-info btn-lg btn-block w-100">Info</button>
-    </li>
-    <li class="list-group-item" style="padding:0px 2px 0px 0px;">
-    	<button type="button" class="btn btn-info btn-lg btn-block w-100">Info</button>
-    </li>
-    <li class="list-group-item" style="padding:0px 2px 0px 0px;">
-    	<button type="button" class="btn btn-info btn-lg btn-block w-100">Info</button>
-    </li>
-    <li class="list-group-item" style="padding:0px 2px 0px 0px;">
-    	<button type="button" class="btn btn-info btn-lg btn-block w-100">Info</button>
-    </li>
-  </ul>
-</div>
+<body>
+	<div id="menu" th:fragment="Menu"
+		class="card w-100 h-100 justify-content-center"
+		style="margin-top: 15.56px;">
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item" style="padding: 0px 2px 0px 0px;">
+			<a class="btn btn-info btn-lg btn-block w-100" th:href="@{~/privilege/}">权限管理</a>
+			</li>
+		</ul>
+	</div>
+</body>
 </head>
 </html>

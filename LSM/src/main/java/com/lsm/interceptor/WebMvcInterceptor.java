@@ -28,7 +28,6 @@ import io.jsonwebtoken.Claims;
  */
 @Component
 public class WebMvcInterceptor implements HandlerInterceptor {
-	private static final Logger LOGGER = LoggerFactory.getLogger(WebMvcInterceptor.class);
 
 	private JwtManager jwtManager;
 	private PrivilegeMapper privilegeMapper;
@@ -54,14 +53,12 @@ public class WebMvcInterceptor implements HandlerInterceptor {
 		try {
 			claims = jwtManager.parseToken(token);
 		} catch (RuntimeException e) {
-			LOGGER.warn("Invalid token format.", e);
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			response.setContentType(MimeTypeUtils.APPLICATION_JSON_VALUE);
 			response.sendRedirect("/401");
 			return false;
 		}
 		if (claims.getExpiration().getTime() < System.currentTimeMillis()) { // not test
-			LOGGER.info("Token was expired.");
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			response.setContentType(MimeTypeUtils.APPLICATION_JSON_VALUE);
 			response.sendRedirect("/401");
@@ -145,3 +142,4 @@ public class WebMvcInterceptor implements HandlerInterceptor {
 	}
 
 }
+	

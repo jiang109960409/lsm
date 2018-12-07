@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+</head>
+<body>
+	<div th:fragment="Privilege" class="card h-100">
+		<div class="card-header">
+			<ul class="nav nav-pills card-header-pills">
+				<li class="nav-item btn-menu-sm">
+					<button type="button" class="btn btn-info" onclick="javascript: listPrivilege()">权限查看</button>
+				</li>
+				<li class="nav-item btn-menu-sm">
+					<button type="button" class="btn btn-info" data-toggle="modal"
+						data-target="#addPrivilegeModal">权限添加</button>
+				</li>
+				<li class="nav-item btn-menu-sm">
+					<button type="button" class="btn btn-info" data-toggle="modal"
+						 onclick="javascript: assignPrivilege()">权限分配</button>
+				</li>
+			</ul>
+		</div>
+		<div class="card-body fluid-container" style="overflow: auto">
+			<div class="row">
+				<div class="col-12 h-100" id="listPrivilege"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

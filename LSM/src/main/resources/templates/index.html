@@ -7,33 +7,325 @@
 
 <title>浪曦学生管理系统</title>
 <link rel="icon" th:href="@{~/image/logo.png}"></link>
-<link th:href="@{~/css/admin.css}" rel="stylesheet" media="screen"
+<link th:href="@{~/css/style.css}" rel="stylesheet" media="screen"
 	type="text/css"></link>
 <link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}"></link>
+<link rel="stylesheet" th:href="@{~/css/bootstrap3.min.css}"></link>
 <script th:src="@{~/js/jquery-3.3.1.min.js}"></script>
 <script th:src="@{~/js/popper.min.js}"></script>
 <script th:src="@{~/js/bootstrap.min.js}"></script>
+<script th:src="@{~/js/bootstrap-treeview.js}"></script>
 <script th:src="@{~/js/jquery.nicescroll.min.js}"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#menu").niceScroll();
-	});
-</script>
 </head>
 <body>
-	<div class="container-fluid h-100" style="padding:0px;">
+	<div class="container-fluid h-100" style="padding: 0px;">
 		<div th:replace="common/banner::Banner"></div>
-		<div class="row h-100">
-			<div class="col-2">
+		<div class="row h-100" style="margin-left: -15px; margin-right: 0px;">
+			<div class="col-2" style="padding-right: 0px;">
 				<div th:replace="common/menu::Menu"></div>
 			</div>
-			<div class="col-10">
-				<div th:if="${data.isHome}" class="d-flex align-items-center justify-content-center h-100">
+			<div class="col-10" style="padding-left: 0px; padding-right: 0px;">
+				<div th:if="${data.isHome}"
+					class="d-flex align-items-center justify-content-center h-100">
 					<h1>欢迎登录浪曦学生管理系统</h1>
+				</div>
+				<div th:unless="${data.isHome}" th:switch="${data.fragmentName}"
+					class="h-100" style="margin-top: 15.56px;">
+					<div th:case="privilege" th:replace="common/privilege::Privilege"></div>
 				</div>
 			</div>
 		</div>
 		<div th:replace="common/footer::Footer"></div>
 	</div>
+	<div class="modal fade" id="addPrivilegeModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">权限添加</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="createPrivilegeInput">
+						<div class="form-group row">
+							<label for="name"
+								class="col-sm-2 col-form-label font-weight-bold">类别</label>
+							<div class="col-sm-10">
+								<select class="custom-select" id="privilegeCategoryId">
+									<option value="1">菜单</option>
+									<option value="2">接口</option>
+									<option value="3">按钮</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="name"
+								class="col-sm-2 col-form-label font-weight-bold">名称</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="privilegeName"></input>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="description"
+								class="col-sm-2 col-form-label font-weight-bold">描述</label>
+							<div class="col-sm-10">
+								<textarea type="text" class="form-control"
+									id="privilegeDescription" rows="4"></textarea>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary"
+						onclick="javascript: createPrivilege()">添加</button>
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="privilegeDetailModal" tabindex="-1"
+		role="dialog" aria-labelledby="privilegeDetailLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="privilegeDetailLabel">权限详细</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="createPrivilegeInput">
+						<div class="form-group row" hidden>
+							<label id="privilegeIdDetail"></label>
+						</div>
+						<div class="form-group row">
+							<label for="name"
+								class="col-sm-2 col-form-label font-weight-bold">类别</label>
+							<div class="col-sm-10">
+								<select class="custom-select" id="privilegeCategoryIdDetail">
+									<option value="1">菜单</option>
+									<option value="2">接口</option>
+									<option value="3">按钮</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="name"
+								class="col-sm-2 col-form-label font-weight-bold">名称</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="privilegeNameDetail"></input>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="description"
+								class="col-sm-2 col-form-label font-weight-bold">描述</label>
+							<div class="col-sm-10">
+								<textarea type="text" class="form-control"
+									id="privilegeDescriptionDetail" rows="4"></textarea>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info"
+						onclick="javascript: createChildPrivilege()">添加子权限</button>
+					<button type="button" class="btn btn-primary"
+						onclick="javascript: updatePrivilege()">修改权限</button>
+					<button type="button" class="btn btn-danger"
+						onclick="javascript: deletePrivilege()">删除权限</button>
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">关闭窗口</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="assignPrivilegeModal" tabindex="-1"
+		role="dialog" aria-labelledby="privilegeDetailLabel"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="privilegeDetailLabel">权限分配</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					角色列表 <select id="role"></select>
+				</div>
+				<div class="modal-footer"></div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#menu").niceScroll();
+			$("#privilegeRow").niceScroll();
+		});
+
+		function listPrivilege() {
+			$.ajax({
+				method : "GET",
+				url : "/privilege/list",
+				success : function(result) {
+					$("#listPrivilege").treeview({
+						data : result,
+						onNodeSelected : function(event, data) {
+							privilegeSelected(data);
+						}
+					});
+				}
+			});
+		}
+
+		function createPrivilege() {
+			var pid = $("#privilegeIdDetail").val();
+			var privilegeCategoryId = $("#privilegeCategoryId").val();
+			var privilegeName = $("#privilegeName").val();
+			var privilegeDescription = $("#privilegeDescription").val();
+
+			$.ajax({
+				method : "POST",
+				url : "/privilege/add",
+				dataType : "json",
+				contentType : "application/json",
+				data : JSON.stringify({
+					pid : pid,
+					privilegeCategoryId : privilegeCategoryId,
+					name : privilegeName,
+					description : privilegeDescription
+				}),
+				success : function(result) {
+					var result = eval(result);
+					if (result.IsSuccess) {
+						alert(result.OutputMessage);
+						$('#addPrivilegeModal').modal('hide');
+						$("#privilegeCategoryId").val("1");
+						$("#privilegeName").val("");
+						$("#privilegeDescription").val("");
+						$("#listPrivilege").treeview({
+							data : result.Data,
+							onNodeSelected : function(event, data) {
+								privilegeSelected(data);
+							}
+						});
+					} else {
+						alert(result.OutputMessage);
+					}
+				}
+			});
+		}
+
+		function createChildPrivilege() {
+			$('#privilegeDetailModal').modal('hide');
+			$("#addPrivilegeModal").modal('show');
+		}
+
+		function updatePrivilege() {
+			var privilegeId = $("#privilegeIdDetail").val();
+			var privilegeCategoryId = $("#privilegeCategoryIdDetail").val();
+			var privilegeName = $("#privilegeNameDetail").val();
+			var privilegeDescription = $("#privilegeDescriptionDetail").val();
+
+			$.ajax({
+				method : "PUT",
+				url : "/privilege/update",
+				dataType : "json",
+				contentType : "application/json",
+				data : JSON.stringify({
+					id : privilegeId,
+					privilegeCategoryId : privilegeCategoryId,
+					name : privilegeName,
+					description : privilegeDescription
+				}),
+				success : function(result) {
+					var result = eval(result);
+					if (result.IsSuccess) {
+						alert(result.OutputMessage);
+						$('#privilegeDetailModal').modal('hide');
+						$("#privilegeIdDetail").val("");
+						$("#privilegeCategoryIdDetail").val("1");
+						$("#privilegeNameDetail").val("");
+						$("#privilegeDescriptionDetail").val("");
+						$("#listPrivilege").treeview({
+							data : result.Data,
+							onNodeSelected : function(event, data) {
+								privilegeSelected(data);
+							}
+						});
+					} else {
+						alert(result.OutputMessage);
+					}
+				}
+			});
+
+		}
+
+		function deletePrivilege() {
+			var id = $("#privilegeIdDetail").val();
+			$.ajax({
+				method : "DELETE",
+				url : "/privilege/" + id + "/delete",
+				success : function(result) {
+					var result = eval(result);
+					if (result.IsSuccess) {
+						alert(result.OutputMessage);
+						$('#privilegeDetailModal').modal('hide');
+						$("#privilegeIdDetail").val("");
+						$("#privilegeCategoryIdDetail").val("1");
+						$("#privilegeNameDetail").val("");
+						$("#privilegeDescriptionDetail").val("");
+						$("#listPrivilege").treeview({
+							data : result.Data,
+							onNodeSelected : function(event, data) {
+								privilegeSelected(data);
+							}
+						});
+					} else {
+						alert(result.OutputMessage);
+					}
+				}
+			});
+
+		}
+		function assignPrivilege() {
+			$("#assignPrivilegeModal").modal('show');
+			
+			$.ajax({
+				method : "GET",
+				url : "/privilege/role/list",
+				dataType : "json",
+				contentType : "application/json",
+				success : function(result) {
+					var result = eval(result);
+					var roles = result.Data;
+					int size = roles.length;
+	
+					for (int i = 0; i < size ;i++){
+						$('#roles').append('<option value='+roles[i].id+'>'+roles[i].name+'</option>')
+					}
+				}	
+			});
+		}
+
+		function privilegeSelected(data) {
+			$("#privilegeIdDetail").val(data.id);
+			$("#privilegeCategoryIdDetail").val(data.categoryId);
+			$("#privilegeNameDetail").val(data.text);
+			$("#privilegeDescriptionDetail").val(data.description);
+
+			$('#privilegeDetailModal').modal('show');
+		}
+	</script>
 </body>
 </html>

@@ -15,6 +15,7 @@ public class RestRespBody {
 	private String outputMessage;
 	private Object data;
 	private boolean isHome;
+	private String fragmentName;
 
 	public RestRespBody(boolean isHome) {
 		this.isHome = isHome;
@@ -29,6 +30,23 @@ public class RestRespBody {
 		this.success = success;
 		this.outputMessage = outputMessage;
 		this.data = data;
+	}
+
+	public RestRespBody(boolean success, String outputMessage, Object data, boolean isHome, String fragmentName) {
+		super();
+		this.success = success;
+		this.outputMessage = outputMessage;
+		this.data = data;
+		this.isHome = isHome;
+		this.fragmentName = fragmentName;
+	}
+
+	public String getFragmentName() {
+		return fragmentName;
+	}
+
+	public void setFragmentName(String fragmentName) {
+		this.fragmentName = fragmentName;
 	}
 
 	public boolean getIsHome() {
