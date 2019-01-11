@@ -7,24 +7,165 @@
 </head>
 <body>
 	<div th:fragment="Privilege" class="card h-100">
-		<div class="card-header">
+		<div id ="privilege-card-header" class="card-header">
 			<ul class="nav nav-pills card-header-pills">
 				<li class="nav-item btn-menu-sm">
-					<button type="button" class="btn btn-info" onclick="javascript: listPrivilege()">权限查看</button>
+					<button type="button" class="btn btn-info"
+						onclick="javascript: listPrivilege()">权限查看</button>
 				</li>
 				<li class="nav-item btn-menu-sm">
 					<button type="button" class="btn btn-info" data-toggle="modal"
 						data-target="#addPrivilegeModal">权限添加</button>
 				</li>
 				<li class="nav-item btn-menu-sm">
-					<button type="button" class="btn btn-info" data-toggle="modal"
-						 onclick="javascript: assignPrivilege()">权限分配</button>
+					<button type="button" class="btn btn-info"
+						onclick="javascript: assignPrivilege()">权限分配</button>
 				</li>
 			</ul>
 		</div>
-		<div class="card-body fluid-container" style="overflow: auto">
+		<div class="card-body fluid-container h-100" style="overflow: auto">
 			<div class="row">
 				<div class="col-12 h-100" id="listPrivilege"></div>
+			</div>
+		</div>
+
+
+		<div class="modal fade" id="addPrivilegeModal" tabindex="-1"
+			role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">权限添加</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="createPrivilegeInput">
+							<div class="form-group row">
+								<label for="name"
+									class="col-sm-2 col-form-label font-weight-bold">类别</label>
+								<div class="col-sm-10">
+									<select class="custom-select" id="privilegeCategoryId">
+										<option value="1">菜单</option>
+										<option value="2">接口</option>
+										<option value="3">按钮</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="name"
+									class="col-sm-2 col-form-label font-weight-bold">名称</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="privilegeName"></input>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="description"
+									class="col-sm-2 col-form-label font-weight-bold">描述</label>
+								<div class="col-sm-10">
+									<textarea type="text" class="form-control"
+										id="privilegeDescription" rows="4"></textarea>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary"
+							onclick="javascript: createPrivilege()">添加</button>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="privilegeDetailModal" tabindex="-1"
+			role="dialog" aria-labelledby="privilegeDetailLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="privilegeDetailLabel">权限详细</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="createPrivilegeInput">
+							<div class="form-group row" hidden>
+								<label id="privilegeIdDetail"></label>
+							</div>
+							<div class="form-group row">
+								<label for="name"
+									class="col-sm-2 col-form-label font-weight-bold">类别</label>
+								<div class="col-sm-10">
+									<select class="custom-select" id="privilegeCategoryIdDetail">
+										<option value="1">菜单</option>
+										<option value="2">接口</option>
+										<option value="3">按钮</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="name"
+									class="col-sm-2 col-form-label font-weight-bold">名称</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control"
+										id="privilegeNameDetail"></input>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="description"
+									class="col-sm-2 col-form-label font-weight-bold">描述</label>
+								<div class="col-sm-10">
+									<textarea type="text" class="form-control"
+										id="privilegeDescriptionDetail" rows="4"></textarea>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info"
+							onclick="javascript: createChildPrivilege()">添加子权限</button>
+						<button type="button" class="btn btn-primary"
+							onclick="javascript: updatePrivilege()">修改权限</button>
+						<button type="button" class="btn btn-danger"
+							onclick="javascript: deletePrivilege()">删除权限</button>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">关闭窗口</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="assignPrivilegeModal" tabindex="-1"
+			role="dialog" aria-labelledby="privilegeDetailLabel"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="privilegeDetailLabel">权限分配</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<span style="font: bold;">角色列表</span>&nbsp;<select id="roles"
+							onchange="javascript:roleSelected()">
+						</select>
+						<div id="rolePrivilege"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger"
+							onclick="javascript: assignPrivilegeUpdate()">提交</button>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">取消</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

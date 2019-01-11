@@ -2,6 +2,8 @@ package com.lsm.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
@@ -14,6 +16,7 @@ import org.apache.ibatis.mapping.StatementType;
 
 import com.lsm.domain.PrivilegeDO;
 import com.lsm.domain.RoleDO;
+import com.lsm.domain.RolePrivilegeDO;
 import com.lsm.dto.CreatePrivilegeInput;
 import com.lsm.dto.DeletePrivilegeInputAndOutput;
 import com.lsm.dto.UpdatePrivilegeInput;
@@ -33,7 +36,7 @@ public interface PrivilegeMapper {
 	List<PrivilegeDO> add(CreatePrivilegeInput input);
 
 	@ResultMap("privilegeDO")
-	@Select("select * from rbac_privilege order by id asc")
+	@Select("select * from rbac_privilege where pid = 0 order by id asc")
 	List<PrivilegeDO> listRootPrivilege();
 
 	@ResultMap("privilegeDO")
@@ -62,4 +65,16 @@ public interface PrivilegeMapper {
 	@Select("select * from rbac_role order by id asc")
 	List<RoleDO> listRoles();
 
+	@Select("select distinct(privilege_id) from rbac_role_privilege where role_id = #{arg1}")
+	List<Long> listRolePrivilegeId(long roleId);
+
+	@Insert("<script>" + "insert into rbac_role_privilege(role_id, privilege_id) values"
+			+ "<foreach collection='list' item='privilegeId' separator=','>" + "(#{roleId}, #{privilegeId})"
+			+ "</foreach></script>")
+	Integer addRolePrivilege(@Param("roleId") long roleId, @Param("list") List<String> privilegeIds);
+
+	@Delete("<script>" + "delete from rbac_role_privilege where role_id=#{roleId} and privilege_id in"
+			+ "<foreach collection='list' item='privilegeId' open='(' close=')' separator=','>" + "#{privilegeId}"
+			+ "</foreach></script>")
+	Integer deleteRolePrivilege(@Param("roleId") long roleId, @Param("list") List<String> privilegeIds);
 }

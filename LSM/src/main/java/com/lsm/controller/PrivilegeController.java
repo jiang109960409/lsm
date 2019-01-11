@@ -1,5 +1,7 @@
 package com.lsm.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +21,7 @@ import com.lsm.dto.CreatePrivilegeInput;
 import com.lsm.dto.DeletePrivilegeInputAndOutput;
 import com.lsm.dto.RestRespBody;
 import com.lsm.dto.UpdatePrivilegeInput;
+import com.lsm.dto.UpdatePrivilegeOfRoleInput;
 import com.lsm.security.JwtManager;
 import com.lsm.security.TokenPayload;
 import com.lsm.service.PrivilegeService;
@@ -77,6 +80,25 @@ public class PrivilegeController {
 	@GetMapping("/role/list")
 	public RestRespBody listRole() {
 		return new RestRespBody(true, "获取成功", privilegeService.listRole());
+	}
+
+	@GetMapping("/role/{roleId}/list")
+	public RestRespBody listPrivilegeOfRole(@PathVariable Long roleId) {
+		if (roleId == null)
+			return new RestRespBody(false, "请选择角色");
+		String result = privilegeService.listPrivilegeOfRoleJSON(roleId);
+		return new RestRespBody(true, "获取成功", result);
+	}
+
+	@PutMapping("/role/{roleId}/update")
+	public RestRespBody updatePrivilegeOfRole(@PathVariable Long roleId, @RequestBody UpdatePrivilegeOfRoleInput input,
+			HttpSession session, HttpServletResponse response) {
+		if (roleId == null)
+			return new RestRespBody(false, "更新失败，请重新尝试");
+		String result = privilegeService.updatePrivilegeOfRole(roleId, input);
+		if (StringUtils.isNullOrEmpty(result))
+			return new RestRespBody(false, "更新失败，请重新尝试");
+		return new RestRespBody(true, "更新成功", result);
 	}
 
 	@ModelAttribute("updatePrivilegeInput")

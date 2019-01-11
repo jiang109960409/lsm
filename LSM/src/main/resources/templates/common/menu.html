@@ -6,11 +6,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
 <body>
 	<div id="menu" th:fragment="Menu"
-		class="card w-100 h-100 justify-content-center"
-		style="margin-top: 15.56px;">
+		class="card w-100 h-100 justify-content-center">
 		<ul class="list-group list-group-flush">
 			<li class="list-group-item" style="padding: 0px 2px 0px 0px;">
-			<a class="btn btn-info btn-lg btn-block w-100" th:href="@{~/privilege/}">权限管理</a>
+				<a class="btn btn-info btn-lg btn-block w-100" th:href="@{~/studentinfo/}">学生信息管理</a>
+			</li>
+			<li class="list-group-item" style="padding: 0px 2px 0px 0px;">
+				<a class="btn btn-info btn-lg btn-block w-100" th:href="@{~/privilege/}">权限管理</a>
 			</li>
 		</ul>
 	</div>

@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	</meta>
+</head>
+
+<body>
+	<div th:fragment="StudentInfo" class="card h-100">
+		<div id="privilege-card-header" class="card-header">
+			<ul class="nav nav-pills card-header-pills">
+				<li class="nav-item btn-menu-sm">
+					<button type="button" class="btn btn-info" onclick="javascript:addStudentInfo()">添加</button>
+				</li>
+			</ul>
+		</div>
+		<div class="card-body fluid-container" style="overflow: auto">
+			<div class="row">
+				<div class="col-12 h-100">Hello</div>
+			</div>
+		</div>
+		<div class="modal fade" id="addStudentInfoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">学生信息添加</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="addStudentInfoInput">
+							<div class="form-group row">
+								<div class="col-sm-1"></div>
+								<label for="name" class="col-sm-1 col-form-label font-weight-bold d-flex align-items-center justify-content-center">姓名</label>
+								<div class="col-sm-2">
+									<input type="text" class="form-control" id="name"></input>
+								</div>
+								<label for="gender" class="col-sm-1 col-form-label font-weight-bold d-flex align-items-center justify-content-center">性别</label>
+								<div class="col-sm-1">
+									<select class="custom-select" id="gender">
+										<option value="0">男</option>
+										<option value="1">女</option>
+									</select>
+								</div>
+								<label for="id" class="col-sm-2 col-form-label font-weight-bold d-flex align-items-center justify-content-center">会员卡号</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="id"></input>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-1"></div>
+								<label for="birthplace" class="col-sm-1 col-form-label font-weight-bold d-flex align-items-center justify-content-center">籍贯</label>
+								<div class="col-sm-2">
+									<input type="text" class="form-control" id="birthplace"></input>
+								</div>
+								<label for="grade" class="col-sm-1 col-form-label font-weight-bold d-flex align-items-center justify-content-center">年级</label>
+								<div class="col-sm-1">
+									<select class="custom-select" id="grade">
+										<option value="大一">大一</option>
+										<option value="大二">大二</option>
+										<option value="大三">大三</option>
+										<option value="大四">大四</option>
+										<option value="大学毕业">大学毕业</option>
+										<option value="高中毕业">高中毕业</option>
+										<option value="初中毕业">初中毕业</option>
+									</select>
+								</div>
+								<label for="idCard" class="col-sm-2 col-form-label font-weight-bold d-flex align-items-center justify-content-center">身份证号</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="idCard"></input>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-1"></div>
+								<label for="school" class="col-sm-1 col-form-label font-weight-bold d-flex align-items-center justify-content-center">学校</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="school"></input>
+								</div>
+								<label for="major" class="col-sm-2 col-form-label font-weight-bold d-flex align-items-center justify-content-center">专业</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="major"></input>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-1"></div>
+								<label for="phone" class="col-sm-1 col-form-label font-weight-bold d-flex align-items-center justify-content-center">手机</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="phone"></input>
+								</div>
+								<label for="qq" class="col-sm-2 col-form-label font-weight-bold d-flex align-items-center justify-content-center">qq</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control" id="qq"></input>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-1"></div>
+								<label for="wechat" class="col-sm-1 col-form-label font-weight-bold d-flex align-items-center justify-content-center">微信</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="wechat"></input>
+								</div>
+								<label for="photoSrc" class="col-sm-2 col-form-label font-weight-bold d-flex align-items-center justify-content-center">报名照</label>
+								<div class="col-sm-3">
+									<input type="file" class="custom-file-input" id="photoSrc" aria-describedby="photoSrc"></input>
+									<label class="custom-file-label d-flex align-items-center" for="photoSrc">&nbsp;选择照片</label>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-1"></div>
+								<label for="applyApproach" class="col-sm-1 col-form-label font-weight-bold d-flex align-items-center justify-content-center">报名途径</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="applyApproach"></input>
+								</div>
+								<label for="applyDate" class="col-sm-2 col-form-label font-weight-bold d-flex align-items-center justify-content-center">报名日期</label>
+								<div class="col-sm-3">
+									<input type="date" class="form-control" id="applyDate"></input>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-1"></div>
+								<label for="teacherId" class="col-sm-1 col-form-label font-weight-bold d-flex align-items-center justify-content-center">教务老师</label>
+								<div class="col-sm-4">
+									<select class="custom-select" id="teacherId"></select>
+								</div>
+								<label for="protocalTypeId" class="col-sm-2 col-form-label font-weight-bold d-flex align-items-center justify-content-center">入学协议</label>
+								<div class="col-sm-3">
+									<select class="custom-select" id="protocalTypeId"></select>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-1"></div>
+								<label for="tuition" class="col-sm-1 col-form-label font-weight-bold d-flex align-items-center justify-content-center">学费</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" id="tuition"></input>
+								</div>
+								<label for="accommodation" class="col-sm-2 col-form-label font-weight-bold d-flex align-items-center justify-content-center">住宿费</label>
+								<div class="col-sm-3">
+									<select class="custom-select" id="accommodation">
+										<option value="1">包含</option>
+										<option value="0">不包含</option>
+									</select>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-1"></div>
+								<label for="rankId" class="col-sm-1 col-form-label font-weight-bold d-flex align-items-center justify-content-center">段位</label>
+								<div class="col-sm-4">
+									<select class="custom-select" id="rankId"></select>
+								</div>
+								<label for="stageId" class="col-sm-2 col-form-label font-weight-bold d-flex align-items-center justify-content-center">课程阶段</label>
+								<div class="col-sm-3">
+									<select class="custom-select" id="stageId"></select>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-1"></div>
+								<label for="classId" class="col-sm-1 col-form-label font-weight-bold d-flex align-items-center justify-content-center">班级</label>
+								<div class="col-sm-4">
+									<select class="custom-select" id="classId"></select>
+								</div>
+								<label for="status" class="col-sm-2 col-form-label font-weight-bold d-flex align-items-center justify-content-center">状态</label>
+								<div class="col-sm-3">
+									<select class="custom-select" id="status">
+										<option value="0">未开班</option>
+										<option value="1">正常上课</option>
+										<option value="2">停课、复训或各种原因没有正常上课</option>
+									</select>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-1"></div>
+								<label for="remarks" class="col-sm-1 col-form-label font-weight-bold d-flex align-items-start justify-content-center">备注</label>
+								<div class="col-sm-9">
+									<textarea type="text" rows="6" cols="82" id="remarks"></textarea>
+								</div>
+								<div class="col-sm-1"></div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="javascript: createPrivilege()">添加</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
+</body>
+
+</html>

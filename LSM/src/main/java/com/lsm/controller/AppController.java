@@ -28,6 +28,7 @@ public class AppController {
 	@Autowired
 	private JwtManager jwtManager;
 	
+	
 	@GetMapping("/")
 	public ModelAndView index() {
 		return new ModelAndView("redirect:login");
